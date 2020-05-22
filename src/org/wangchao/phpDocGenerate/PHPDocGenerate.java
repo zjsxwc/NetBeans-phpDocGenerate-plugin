@@ -29,6 +29,58 @@ ActionListener  {
         JTextComponent editor = EditorRegistry.lastFocusedComponent();
         Document doc = editor.getDocument();
         int dotOffset = editor.getCaretPosition();
+        
+        String phpDocStart = "";
+        try {
+            //判断前面是否 "/**"
+            phpDocStart = doc.getText(dotOffset -3, 3);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(PHPDocGenerate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if ("/**".equals(phpDocStart)) {
+            //寻找下面的 $XXX<空格>或"="
+            String argName = "";
+            int curOffset = 1;
+            String curChar = "";
+            boolean startArgName = false;
+            while (true) {                
+                try {
+                    curChar = doc.getText(dotOffset + curOffset, 1);
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(PHPDocGenerate.class.getName()).log(Level.SEVERE, null, ex);
+                    break;
+                }
+                if (startArgName && (curChar.equals(" ")||curChar.equals("\t")||curChar.equals("=")|| curChar.equals("\n"))) {
+                    break;
+                }
+                if (curChar.equals("$")) {
+                    startArgName = true;
+                }
+                if (startArgName) {
+                    argName = argName + curChar;
+                }
+                curOffset ++;
+            }
+            if (!startArgName) {
+                return;
+            }
+            argName = argName.trim();
+            if (argName.length() == 0) {
+                return;
+            }
+            
+            try {
+                doc.insertString(dotOffset," @var  " + argName + " */", null);
+                editor.setCaretPosition(dotOffset + " @var ".length());
+            } catch (BadLocationException ex) {
+                Logger.getLogger(PHPDocGenerate.class.getName()).log(Level.SEVERE, null, ex);
+                return;
+            }
+            return;
+        }
+        
+        
+        
         String line = "";
         int curOffset = -1;
         String curChar = "";
@@ -40,6 +92,7 @@ ActionListener  {
                 curChar = doc.getText(dotOffset + curOffset, 1);
             } catch (BadLocationException ex) {
                 Logger.getLogger(PHPDocGenerate.class.getName()).log(Level.SEVERE, null, ex);
+                return;
             }
             if ("\n".equals(curChar)) {
                 break;
@@ -85,6 +138,7 @@ ActionListener  {
                 }
             } catch (BadLocationException ex) {
                 Logger.getLogger(PHPDocGenerate.class.getName()).log(Level.SEVERE, null, ex);
+                return;
             }
         }
         if ((argTypeListName.length() > 0)&& (argTypeListName.contains("[]"))) {
@@ -95,8 +149,8 @@ ActionListener  {
                 try {
                     doc.insertString(dotOffset + curOffset + 1, whiteCharString + "/** @var " + perArgTypeName + " " + perArgName + " */\n", null);
                 } catch (BadLocationException ex) {
-                    
                     Logger.getLogger(PHPDocGenerate.class.getName()).log(Level.SEVERE, null, ex);
+                    return;
                 }
             }
         }
