@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="File">
+            <file name="org-wangchao-phpDocGenerate-PHPDocGenerate.instance">
+                <attr name="delegate" newvalue="org.wangchao.phpDocGenerate.PHPDocGenerate"/>
+                <attr name="displayName" bundlevalue="org.wangchao.phpDocGenerate.Bundle#OpenIDE-Module-Name"/>
+                <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.alwaysEnabled"/>
+                <attr name="noIconInMenu" boolvalue="false"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Menu">
+        <folder name="Source">
+            <file name="org-wangchao-phpDocGenerate-PHPDocGenerate.shadow">
+                <attr name="originalFile" stringvalue="Actions/File/org-wangchao-phpDocGenerate-PHPDocGenerate.instance"/>
+                <attr name="position" intvalue="0"/>
+            </file>
+        </folder>
+    </folder>
+</filesystem>
