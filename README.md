@@ -1,6 +1,7 @@
 
 NetBeans PHP Doc 补全 插件
 
+安装后在Source下新增加了一个phpDocGenerate，可以对这个phpDocGenerate添加一个快捷键，方便使用。
 
 目前实现了
 
@@ -12,7 +13,7 @@ NetBeans PHP Doc 补全 插件
 /**<光标位置>
 $aaa =
 ```
-补全后变成
+使用phpDocGenerate补全后变成
 
 ```
 /** @var <光标位置> $aaa */
@@ -28,7 +29,7 @@ $aaa =
 ```
 foreach ($aaaList as $aaa) {<光标位置>
 ```
-补全后变成
+使用phpDocGenerate补全后变成
 
 ```
 /** @var AAAType $aaa */
