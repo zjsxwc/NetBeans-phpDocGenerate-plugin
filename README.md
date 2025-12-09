@@ -3,6 +3,8 @@ NetBeans PHP Doc 补全 插件
 
 安装后在Source下新增加了一个phpDocGenerate，可以对这个phpDocGenerate添加一个快捷键，方便使用。
 
+yay -S jdk8-openjdk
+
 目前实现了
 
 #### 对 /** 补全@var
